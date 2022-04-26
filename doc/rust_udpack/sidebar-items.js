@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Transport","Represents a connection instance, there are two ways to create it, udpack.connect() or udpack.accept()."],["Udpack","It is the main implementation class of UDPack, a connection-oriented reliable data transmission protocol based on udp."]]});

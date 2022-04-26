@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["rust_udpack"] = [{"text":"impl Freeze for <a class=\"struct\" href=\"rust_udpack/struct.Transport.html\" title=\"struct rust_udpack::Transport\">Transport</a>","synthetic":true,"types":["rust_udpack::transport::Transport"]},{"text":"impl Freeze for <a class=\"struct\" href=\"rust_udpack/struct.Udpack.html\" title=\"struct rust_udpack::Udpack\">Udpack</a>","synthetic":true,"types":["rust_udpack::udpack::Udpack"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
