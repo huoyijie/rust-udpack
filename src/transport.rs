@@ -1,11 +1,10 @@
-use crate::udpack::command::Command;
-use crate::udpack::macros;
+use crate::udpack::{command::Command, macros};
 use bytes::Bytes;
-use std::io;
-use std::net::SocketAddr;
-use tokio::sync::mpsc::UnboundedReceiver;
-use tokio::sync::mpsc::UnboundedSender;
-use tokio::sync::oneshot;
+use std::{io, net::SocketAddr};
+use tokio::sync::{
+  mpsc::{UnboundedReceiver, UnboundedSender},
+  oneshot,
+};
 
 /// Transport instance builder.
 pub struct Builder;

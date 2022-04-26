@@ -1,13 +1,10 @@
-use super::frame::Frame;
-use super::frame_kind::FrameKind;
-use super::frame_kind::FrameKind::*;
-use bytes::Buf;
-use bytes::BufMut;
-use bytes::BytesMut;
-use std::io;
-use std::io::ErrorKind;
-use tokio_util::codec::Decoder;
-use tokio_util::codec::Encoder;
+use super::{
+  frame::Frame,
+  frame_kind::{FrameKind, FrameKind::*},
+};
+use bytes::{Buf, BufMut, BytesMut};
+use std::{io, io::ErrorKind};
+use tokio_util::codec::{Decoder, Encoder};
 
 /// Frame encoder and decoder
 #[derive(Debug)]

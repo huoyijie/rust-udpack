@@ -1,33 +1,23 @@
-use crate::transport::Builder;
-use crate::udpack::macros;
-use crate::udpack::speed::Speed;
-use crate::udpack::state::State;
-use crate::udpack::Command;
-use crate::udpack::Frame;
-use crate::udpack::FrameCodec;
-use crate::udpack::FrameKind;
-use crate::udpack::FrameKind::*;
-use crate::udpack::PackState;
-use crate::udpack::Packet;
-use crate::udpack::Session;
-use crate::Transport;
-use bytes::Buf;
-use bytes::BufMut;
-use bytes::BytesMut;
+use crate::{
+  transport::Builder,
+  udpack::{
+    macros, speed::Speed, state::State, Command, Frame, FrameCodec, FrameKind, FrameKind::*,
+    PackState, Packet, Session,
+  },
+  Transport,
+};
+use bytes::{Buf, BufMut, BytesMut};
 use rand::Rng;
 use sonyflake::Sonyflake;
-use std::collections::HashMap;
-use std::error::Error;
-use std::io;
-use std::marker;
-use std::net::SocketAddr;
-use tokio::net::UdpSocket;
-use tokio::sync::mpsc::UnboundedReceiver;
-use tokio::sync::mpsc::UnboundedSender;
-use tokio::sync::oneshot;
-use tokio::time;
-use tokio::time::Duration;
-use tokio::time::Instant;
+use std::{collections::HashMap, error::Error, io, marker, net::SocketAddr};
+use tokio::{
+  net::UdpSocket,
+  sync::{
+    mpsc::{UnboundedReceiver, UnboundedSender},
+    oneshot,
+  },
+  time::{interval, Duration, Instant, Interval},
+};
 use tokio_util::codec::Decoder;
 
 pub const CONNECT_TIMEOUT_MILLIS: u64 = 1500;
@@ -63,7 +53,7 @@ pub struct FrameTask {
   tx1: UnboundedSender<Transport>,
 
   // task interval
-  interval: time::Interval,
+  interval: Interval,
 
   // encoder and decoder of frames
   codec: FrameCodec,
@@ -78,7 +68,7 @@ pub struct FrameTask {
   buf: [u8; Frame::MAX_FRAME_LEN],
 
   // speed interval
-  speed_interval: time::Interval,
+  speed_interval: Interval,
 
   // send speed
   send_speed: Speed,
@@ -108,7 +98,7 @@ impl FrameTask {
 
       connect_req_map: HashMap::new(),
 
-      interval: time::interval(Duration::from_millis(TASK_INTERVAL_MILLIS)),
+      interval: interval(Duration::from_millis(TASK_INTERVAL_MILLIS)),
 
       codec: FrameCodec,
 
@@ -118,7 +108,7 @@ impl FrameTask {
 
       buf: [0u8; Frame::MAX_FRAME_LEN],
 
-      speed_interval: time::interval(Duration::from_secs(SPEED_INTERVAL_SECS)),
+      speed_interval: interval(Duration::from_secs(SPEED_INTERVAL_SECS)),
 
       send_speed: Speed::new(),
 

@@ -1,20 +1,16 @@
-use crate::udpack::codec::FrameCodec;
-use crate::udpack::frame::Frame;
-use crate::udpack::frame_kind::FrameKind;
-use crate::udpack::frame_task::FrameTask;
-use crate::udpack::macros;
-use crate::Transport;
-use crate::Udpack;
-use bytes::BufMut;
-use bytes::Bytes;
-use bytes::BytesMut;
+use crate::{
+  udpack::{codec::FrameCodec, frame::Frame, frame_kind::FrameKind, frame_task::FrameTask, macros},
+  Transport, Udpack,
+};
+use bytes::{BufMut, Bytes, BytesMut};
 use sonyflake::Sonyflake;
 use std::io;
-use tokio::net::UdpSocket;
-use tokio::sync::mpsc;
-use tokio::sync::mpsc::UnboundedReceiver;
-use tokio::task::JoinHandle;
-use tokio::time::{sleep, Duration};
+use tokio::{
+  net::UdpSocket,
+  sync::mpsc::{unbounded_channel, UnboundedReceiver},
+  task::JoinHandle,
+  time::{sleep, Duration},
+};
 use tokio_util::codec::Decoder;
 
 #[tokio::test]
@@ -251,8 +247,8 @@ async fn frame_task_prepare_data() -> io::Result<(
   UnboundedReceiver<Transport>,
 )> {
   let socket = UdpSocket::bind("0.0.0.0:8080").await?;
-  let (tx, rx) = mpsc::unbounded_channel();
-  let (tx1, rx1) = mpsc::unbounded_channel();
+  let (tx, rx) = unbounded_channel();
+  let (tx1, rx1) = unbounded_channel();
   let mut frame_task = FrameTask::new(socket, tx, rx, tx1);
   let _handle: JoinHandle<io::Result<()>> = tokio::spawn(async move { frame_task.execute().await });
 

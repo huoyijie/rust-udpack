@@ -1,7 +1,6 @@
 use crate::transport::Transport;
 use bytes::Bytes;
-use std::io;
-use std::net::SocketAddr;
+use std::{io, net::SocketAddr};
 use tokio::sync::oneshot;
 
 pub enum Command {

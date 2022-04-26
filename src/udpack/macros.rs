@@ -76,8 +76,7 @@ macro_rules! get_session {
 
 macro_rules! get_session_or_wr_err {
   ($session_map: expr, $uuid: expr, $codec: expr, $dst: expr, $socket: expr, $remote_addr: ident, $session: ident => $if_block: block) => {
-    use crate::udpack::frame::Frame;
-    use crate::udpack::frame_kind::FrameKind;
+    use crate::udpack::{frame::Frame, frame_kind::FrameKind};
     crate::udpack::macros::get_session_or!(
       $session_map,
       $uuid,
@@ -110,9 +109,7 @@ macro_rules! get_session_or_err {
 
 macro_rules! write_shutdown_frame {
   ($codec: expr, $dst: expr, $socket: expr, $session: ident, $uuid: expr) => {
-    use crate::udpack::frame::Frame;
-    use crate::udpack::frame_kind::FrameKind;
-    use crate::udpack::state::State;
+    use crate::udpack::{frame::Frame, frame_kind::FrameKind, state::State};
     let remote_addr = $session.remote_addr();
     match $session.state() {
       State::Shutdown => {

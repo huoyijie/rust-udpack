@@ -1,8 +1,6 @@
-use rust_udpack::Transport;
-use rust_udpack::Udpack;
+use rust_udpack::{Transport, Udpack};
 use std::io;
-use tokio::signal;
-use tokio::task::JoinHandle;
+use tokio::{signal, task::JoinHandle};
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
