@@ -21,4 +21,4 @@ tokio = { version = "1.17.0", features = ["full"] }
 tokio-util = { version = "0.7.0", features = ["codec"] }
 bytes = "1.1.0"
 rand = "0.8"
-sonyflake = "0.1"
+sonyflake = { path = "../rust-sonyflake" }
