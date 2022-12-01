@@ -169,7 +169,7 @@ impl FrameTask {
         _ = self.speed_interval.tick() => {
           self.retry_ratio_ctrl();
 
-          println!("[speed: send {}, recv {}]", self.send_speed.in_kilo_bytes(), self.recv_speed.in_kilo_bytes());
+          // println!("[speed: send {}, recv {}]", self.send_speed.in_kilo_bytes(), self.recv_speed.in_kilo_bytes());
           self.send_speed.reset();
           self.recv_speed.reset();
         }
