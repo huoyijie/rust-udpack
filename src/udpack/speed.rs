@@ -6,6 +6,7 @@ pub struct Speed {
   from: Instant,
 }
 
+#[allow(dead_code)]
 impl Speed {
   pub fn new() -> Self {
     Self {

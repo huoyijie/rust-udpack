@@ -20,7 +20,7 @@ async fn main() -> io::Result<()> {
         }
       }
       _ = interval.tick() => {
-        transport.write(Bytes::copy_from_slice(&[1u8; 2048])).await?;
+        transport.write(Bytes::from("Hello, world!")).await?;
       }
       _ = signal::ctrl_c() => {
         println!("ctrl-c received!");
